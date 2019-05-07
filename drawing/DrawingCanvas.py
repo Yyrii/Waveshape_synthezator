@@ -5,11 +5,12 @@ from drawing.DrawingCanvas_methods import*
 
 class DrawingCanvas:
     def __init__(self, root):
-        self.drawing_area = Canvas(root, width= width, height=height)
+        self.drawing_area = Canvas(root, width= Setup.width, height=Setup.height)
         self.drawing_area.pack()
         self.drawing_area.bind("<Motion>", self.motion)
         self.drawing_area.bind("<ButtonPress-1>", self.left_but_down)
         self.drawing_area.bind("<ButtonRelease-1>", self.left_but_up)
+        introducing_lines(self)
 
 
 

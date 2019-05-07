@@ -7,9 +7,9 @@ def pencil_draw_method(self, event=None):
             for i in range(event.x - self.x_pos):
 
                 if not self.y_pos < 0:
-                    vector_y.append((self.y_pos / height) - 0.5)
+                    vector_y.append((self.y_pos / Setup.height) - 0.5)
                 else:
-                    vector_y.append(default_val)
+                    vector_y.append(Setup.default_val)
 
                 y_new_line_coord = int((event.y - self.y_pos) * 1 / (event.x - self.x_pos)) + self.y_pos
 
@@ -52,3 +52,8 @@ def left_but_up_method(self, event=None):
 def delete_lines_method(self):
     for i in range(len(lines)):
         self.drawing_area.delete(lines[i])
+
+def introducing_lines(self):
+    for i in range(Setup.width):
+        lines[i] = self.drawing_area.create_line(i, Setup.height / 2, i + 1, Setup.height / 2, width=5)
+        vector_y.append(0)
