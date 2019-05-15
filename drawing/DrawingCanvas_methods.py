@@ -1,3 +1,5 @@
+import tkinter as tk
+from global_.gl_vectors import*
 from drawing.DrawingCanvas import*
 
 def pencil_draw_method(self, event=None):
@@ -16,10 +18,9 @@ def pencil_draw_method(self, event=None):
                 # overwriting lines
                 if lines[self.x_pos]:
                     self.drawing_area.delete(lines[self.x_pos])
-                    # TODO: drawing side lines
 
                 lines[self.x_pos] = event.widget.create_line(self.x_pos, self.y_pos, self.x_pos + 1, y_new_line_coord,
-                                                             width=5, smooth=TRUE)
+                                                             width=5,fill='green')
                 self.x_pos = self.x_pos + 1
                 self.y_pos = y_new_line_coord
 

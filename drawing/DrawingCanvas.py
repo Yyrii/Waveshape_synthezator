@@ -1,17 +1,14 @@
-from tkinter import *
-from global_.gl_vectors import*
-from drawing.DrawingCanvas_methods import*
+from .DrawingCanvas_methods import *
 
 
 class DrawingCanvas:
-    def __init__(self, root):
-        self.drawing_area = Canvas(root, width= Setup.width, height=Setup.height)
-        self.drawing_area.pack()
+    def __init__(self):
+        self.drawing_area = tk.Canvas(width= Setup.width, height=Setup.height)
         self.drawing_area.bind("<Motion>", self.motion)
         self.drawing_area.bind("<ButtonPress-1>", self.left_but_down)
         self.drawing_area.bind("<ButtonRelease-1>", self.left_but_up)
         introducing_lines(self)
-
+        #self.drawing_area.pack()
 
 
     drawing_tool = "pencil"

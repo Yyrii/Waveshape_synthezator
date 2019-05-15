@@ -2,6 +2,7 @@ import numpy as np
 import pyaudio
 from global_.gl_vectors import *
 from drawing import paint
+import global_.setup as setup
 
 
 p = pyaudio.PyAudio()
@@ -14,7 +15,7 @@ def waveshape_APP():
     stream = p.open(format=pyaudio.paFloat32,channels=1,rate=Setup.fs,output=True)
 
     while 1:
-
+        #setup.Setup.freq = setup.Setup.freq - 0.5
         samples = np.float32(paint.reading())
         stream.write(samples)
 

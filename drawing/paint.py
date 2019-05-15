@@ -2,8 +2,8 @@ from drawing.DrawingCanvas import *
 import wave_operations.wave_operations as w_o
 
 def paint_master():
-    root = Tk()
-    paint_app = DrawingCanvas(root)
+    root = tk.Tk()
+    paint_app = DrawingCanvas()
     root.mainloop()
 
 def reading():

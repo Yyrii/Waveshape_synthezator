@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import global_.setup as setup
 
 
 
@@ -25,6 +26,3 @@ def freq_adapter(freq, input_v, fs):
     for i in range(expected_width):
         output_v.append(np.mean(input_v[ offset+i*window : offset+(i+1)*window]))
     return output_v
-
-
-
