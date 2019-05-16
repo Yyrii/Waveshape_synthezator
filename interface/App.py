@@ -8,6 +8,7 @@ class Synthezator(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
+        #waveshape_APP()
 
         self.frames = {}
 
@@ -15,7 +16,7 @@ class Synthezator(tk.Tk):
         self.frames[StartPage] = frame
 
         frame.grid(row=0, column=0, sticky="nsew") #stretching (north, south, east, west)
-
+        waveshape_APP()
 
         self.show_frame(StartPage)
 
@@ -24,5 +25,3 @@ class Synthezator(tk.Tk):
         frame.tkraise()
         frame.event_generate("<<ShowFrame>>")
 
-app = Synthezator()
-app.mainloop()
