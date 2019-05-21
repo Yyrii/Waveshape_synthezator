@@ -3,26 +3,44 @@ import pyaudio
 from global_.gl_vectors import *
 from drawing import paint
 import global_.setup as setup
+import threading
 
 
-p = pyaudio.PyAudio()
+class SoundApp:
+    def __init__(self):
+        self.p = pyaudio.PyAudio()
+        self.stream = self.p.open(format=pyaudio.paFloat32, channels=1, rate=Setup.fs, output=True)
 
-def waveshape_APP():
+    def play(self):
+        def start_audio():
+            p = pyaudio.PyAudio()
+            stream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=True)
 
-    #paint.paint_master()
+            while switch:
+                samples = np.float32(paint.reading())
+                stream.write(samples)
+                if not switch:
+                    break
 
-    # for paFloat32 sample values must be in range [-1.0, 1.0]
-    stream = p.open(format=pyaudio.paFloat32,channels=1,rate=Setup.fs,output=True)
+            stream.stop_stream()
+            stream.close()
+            p.terminate()
 
-    for i in range(100):
-        #setup.Setup.freq = setup.Setup.freq - 0.5
-        samples = np.float32(paint.reading())
-        stream.write(samples)
+        thread = threading.Thread(target=start_audio)
+        thread.start()
+
+    def switchon(self):
+        global switch
+        switch = True
+        self.play()
+
+    def switchoff(self):
+        global switch
+        switch = False
 
 
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
-
-
+    def __exit__(self, *args):
+        self.stream.stop_stream()
+        self.stream.close()
+        self.p.terminate()
 

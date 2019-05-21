@@ -1,6 +1,7 @@
 import tkinter as tk
 import drawing.DrawingCanvas as DC
 import sound.sound_ as sound
+import threading
 
 
 
@@ -26,21 +27,12 @@ class StartPage(tk.Frame):
         self.Hide_but = tk.Button(self, text='Hide', command=lambda: self.hide_canvas())
         self.Hide_but.pack()
 
-        self.Play_but = tk.Button(self, text='Play')
+        self.Play_but = tk.Button(self, text='Play', command=lambda :sound.SoundApp().switchon())
         self.Play_but.pack()
-        self.Play_but.bind('<ButtonPress-1>', self.play_start)
-        self.Play_but.bind('<ButtonRelease-1>', self.play_stop)
 
+        self.Play_stop = tk.Button(self, text='Stop', command=lambda: sound.SoundApp().switchoff())
+        self.Play_stop.pack()
 
-    running = False
-    def play_start(self, event):
-        global running
-        running = True
-        sound.waveshape_APP()
-
-    def play_stop(self, event):
-        global running
-        running = False
 
 
     def add_canvas(self):
@@ -49,8 +41,14 @@ class StartPage(tk.Frame):
         self.canvas.hide()
 
 
+    def kill(self):
+        root.destroy()
 
-root = tk.Tk()
 
-a = StartPage(root)
-root.mainloop()
+
+
+#root = tk.Tk()
+#root.geometry('300x300')
+
+#a = StartPage(root)
+#root.mainloop()

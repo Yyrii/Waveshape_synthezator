@@ -8,6 +8,6 @@ def paint_master():
 
 def reading():
     result =  w_o.freq_adapter(Setup.freq,w_o.fixing_vector(vector_y,lines),Setup.fs)
-    for i in range(3): # if the vector is too low, there is buzzing problem. This way loops are small (just 4), and sufficient
+    for i in range(3): # expanding vector to avoid buzzing
         result += result
     return result
