@@ -44,11 +44,3 @@ class StartPage(tk.Frame):
     def kill(self):
         root.destroy()
 
-
-
-
-#root = tk.Tk()
-#root.geometry('300x300')
-
-#a = StartPage(root)
-#root.mainloop()

@@ -13,18 +13,16 @@ class SoundApp:
 
     def play(self):
         def start_audio():
-            p = pyaudio.PyAudio()
-            stream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=True)
 
             while switch:
                 samples = np.float32(paint.reading())
-                stream.write(samples)
+                self.stream.write(samples)
                 if not switch:
                     break
 
-            stream.stop_stream()
-            stream.close()
-            p.terminate()
+            self.stream.stop_stream()
+            self.stream.close()
+            self.p.terminate()
 
         thread = threading.Thread(target=start_audio)
         thread.start()
