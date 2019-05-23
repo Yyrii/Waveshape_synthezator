@@ -3,6 +3,7 @@ import drawing.DrawingCanvas as DC
 import sound.sound_ as sound
 import threading
 from . import Channel
+from .Channels_list import *
 
 
 
@@ -14,19 +15,14 @@ class StartPage(tk.Frame):
         self.pack()
         self.canvas = DC.DrawingCanvas(self)
 
-        self.Show_but = tk.Button(self, text='Show', command = lambda: self.show_canvas())
-        self.Show_but.pack()
 
-        self.Hide_but = tk.Button(self, text='Hide', command=lambda: self.hide_canvas())
-        self.Hide_but.pack()
-
-        self.Play_but = tk.Button(self, text='Play', command=lambda :sound.SoundApp(self.canvas).switchon())
+        self.Play_but = tk.Button(self, text='Play', command=lambda :self.master_play())
         self.Play_but.pack()
 
-        self.Play_stop = tk.Button(self, text='Stop', command=lambda: sound.SoundApp(self.canvas).switchoff())
+        self.Play_stop = tk.Button(self, text='Stop', command=lambda: self.master_stop_play())
         self.Play_stop.pack()
 
-        self.Add_channel = tk.Button(self, text='Add_channel', command=lambda: Channel.Channel(self).place())
+        self.Add_channel = tk.Button(self, text='Add_channel', command=lambda: [Channel_list.append(Channel.Channel(self)), Channel_list[-1].place()])
         self.Add_channel.pack()
 
 
@@ -34,5 +30,13 @@ class StartPage(tk.Frame):
         self.canvas.show()
     def hide_canvas(self):
         self.canvas.hide()
+
+    def master_play(self):
+        for el in Channel_list:
+            el.play()
+
+    def master_stop_play(self):
+        for el in Channel_list:
+            el.stop_play()
 
 

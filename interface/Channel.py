@@ -24,3 +24,7 @@ class Channel(tk.Frame):
 
     def place(self):
         self.pack()
+    def play(self):
+        self.Sound.switchon()
+    def stop_play(self):
+        self.Sound.switchoff()

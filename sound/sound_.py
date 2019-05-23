@@ -10,9 +10,9 @@ import wave_operations.wave_operations as w_o
 
 class SoundApp:
     def __init__(self, Canvas):
+        self.canvas = Canvas
         self.p = pyaudio.PyAudio()
         self.stream = self.p.open(format=pyaudio.paFloat32, channels=1, rate=Setup.fs, output=True)
-        self.canvas = Canvas
 
     def play(self):
         def start_audio():
@@ -25,9 +25,6 @@ class SoundApp:
                 if not switch:
                     break
 
-            self.stream.stop_stream()
-            self.stream.close()
-            self.p.terminate()
 
         thread = threading.Thread(target=start_audio)
         thread.start()
