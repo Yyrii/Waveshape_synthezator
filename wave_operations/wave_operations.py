@@ -4,11 +4,6 @@ import global_.setup as setup
 
 
 
-def fixing_vector(input_v, order):
-    out = []
-    for i in range(len(order)):
-        out.append(input_v[order[i]])
-    return out
 
 def sine(): #testing draw & sound
     output = []
