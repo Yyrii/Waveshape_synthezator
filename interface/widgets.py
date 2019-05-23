@@ -2,6 +2,7 @@ import tkinter as tk
 import drawing.DrawingCanvas as DC
 import sound.sound_ as sound
 import threading
+from . import Channel
 
 
 
@@ -24,6 +25,9 @@ class StartPage(tk.Frame):
 
         self.Play_stop = tk.Button(self, text='Stop', command=lambda: sound.SoundApp(self.canvas).switchoff())
         self.Play_stop.pack()
+
+        self.Add_channel = tk.Button(self, text='Add_channel', command=lambda: Channel.Channel(self).place())
+        self.Add_channel.pack()
 
 
     def show_canvas(self):
