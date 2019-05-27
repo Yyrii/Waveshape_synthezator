@@ -1,4 +1,4 @@
-from drawing.DrawingCanvas_methods import *
+from interface.canvas.DrawingCanvas_methods import *
 
 
 class DrawingCanvas:
@@ -18,7 +18,7 @@ class DrawingCanvas:
 
     drawing_tool = "pencil"
     left_but = "up"             # Tracks whether left mouse is down
-    x_pos, y_pos = None, None   # x and y positions for drawing with pencil
+    x_pos, y_pos = None, None   # x and y positions for canvas with pencil
 
     # ---------- DRAW PENCIL ----------
     pencil_draw = pencil_draw_method

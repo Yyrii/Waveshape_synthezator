@@ -1,7 +1,7 @@
 import tkinter as tk
 
-#from drawing.DrawingCanvas import*
-from global_.setup import *
+#from canvas.DrawingCanvas import*
+from setup_.setup import *
 
 
 def pencil_draw_method(self, event=None):

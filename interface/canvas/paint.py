@@ -1,5 +1,6 @@
-from drawing.DrawingCanvas import *
-import wave_operations.wave_operations as w_o
+from interface.canvas.DrawingCanvas import *
+from sound.wave_operations import wave_operations as w_o
+
 
 def paint_master():
     root = tk.Tk()

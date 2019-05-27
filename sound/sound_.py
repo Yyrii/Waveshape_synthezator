@@ -1,11 +1,9 @@
+import threading
 import numpy as np
 import pyaudio
-from global_.setup import *
-
-from drawing import paint
-import global_.setup as setup
-import threading
-import wave_operations.wave_operations as w_o
+from setup_.setup import *
+from sound.wave_operations import wave_operations as w_o
+from sound.audio_effects import ChangeAudio
 
 
 class SoundApp:
@@ -13,18 +11,23 @@ class SoundApp:
         self.canvas = Canvas
         self.p = pyaudio.PyAudio()
         self.stream = self.p.open(format=pyaudio.paFloat32, channels=1, rate=Setup.fs, output=True)
+        self.AudioChanger = ChangeAudio()
 
     def play(self):
         def start_audio():
             while switch:
-                result = w_o.freq_adapter(Setup.freq, self.canvas.return_vec(), Setup.fs)
+                canvas_samples = w_o.freq_adapter(Setup.freq, self.canvas.return_vec(), Setup.fs)
+
+                self.AudioChanger.set_vec(canvas_samples)
+                self.AudioChanger.change_audio(volume=0.2)
+                audio = self.AudioChanger.return_vec()
+
                 for i in range(3):  # expanding vector to avoid buzzing
-                    result += result
-                samples = np.float32(result)
+                    audio += audio
+                samples = np.float32(audio)
                 self.stream.write(samples)
                 if not switch:
                     break
-
 
         thread = threading.Thread(target=start_audio)
         thread.start()
@@ -37,7 +40,6 @@ class SoundApp:
     def switchoff(self):
         global switch
         switch = False
-
 
     def __exit__(self, *args):
         self.stream.stop_stream()

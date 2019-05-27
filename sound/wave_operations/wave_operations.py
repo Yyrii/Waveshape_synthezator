@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import global_.setup as setup
+import setup_.setup as setup
 
 
 

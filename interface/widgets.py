@@ -1,15 +1,11 @@
 import tkinter as tk
-import drawing.DrawingCanvas as DC
-import sound.sound_ as sound
-import threading
+
+import interface.canvas.DrawingCanvas as DC
 from . import Channel
 from .Channels_list import *
 
 
-
-
-
-class StartPage(tk.Frame):
+class MasterPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.pack()
