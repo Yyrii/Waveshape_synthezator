@@ -19,7 +19,7 @@ class SoundApp:
                 canvas_samples = w_o.freq_adapter(Setup.freq, self.canvas.return_vec(), Setup.fs)
 
                 self.AudioChanger.set_vec(canvas_samples)
-                self.AudioChanger.change_audio(volume=0.2)
+                self.AudioChanger.change_audio(volume=0.2,lfo=5)
                 audio = self.AudioChanger.return_vec()
 
                 for i in range(3):  # expanding vector to avoid buzzing

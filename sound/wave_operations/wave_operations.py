@@ -3,7 +3,13 @@ import matplotlib.pyplot as plt
 import setup_.setup as setup
 
 
+def sine(freq,modulation_depth): #testing draw & sound
+    output = []
 
+    t=np.arange(0,1,1/setup.Setup.fs)
+    for i in range(len(t)):
+        output.append(float(modulation_depth)*np.sin(2*t[i]*np.pi*freq))
+    return output
 
 def sine(): #testing draw & sound
     output = []
