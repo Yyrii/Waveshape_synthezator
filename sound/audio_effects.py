@@ -1,8 +1,4 @@
 
-
-
-
-
 class ChangeAudio:
     def __init__(self):
 

@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import threading
 from interface.canvas.DrawingCanvas import DrawingCanvas
 from sound.sound_ import SoundApp
 from .inside_classes.ChannelLabel import Channel_label
@@ -19,12 +19,11 @@ class Channel(tk.Frame):
         self.Canvas = DrawingCanvas(self)
         self.Canvas.show()
 
-        self.Sound = SoundApp(self.Canvas)
+        self.Sound = SoundApp(self.Canvas, self.ChannelScale)
 
         self.PlayButt.configure(command = lambda: self.Sound.switchon())
         self.StopButt.configure(command = lambda: self.Sound.switchoff())
 
-        print(self.ChannelScale.get())
 
     def place(self):
         self.pack()
