@@ -12,7 +12,7 @@ class Channel(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.ChannelScale = ChannelScale(self)
+        self.ChannelScale = ChannelScale(self,0,1)
         self.Label = Channel_label(self)
         self.PlayButt = PlayButt(self)
         self.StopButt = StopButt(self)

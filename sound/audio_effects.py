@@ -1,9 +1,19 @@
+import numpy as np
+
+
+def count(f):
+    def wrapped(**kwargs):
+        wrapped.calls += 1
+        return f(**kwargs)
+    wrapped.calls = 0
+    return wrapped
+
 
 class ChangeAudio:
     def __init__(self):
-
         self.keyword_functions = {
-            'volume': self.volume
+            'volume': self.volume,
+            'fm' : self.fm
         }
 
     def set_vec(self, vector):
@@ -18,3 +28,7 @@ class ChangeAudio:
 
     def volume(self, vol):
         self.vector = [vol*el for el in self.vector]
+
+
+    def fm(self):
+        pass
