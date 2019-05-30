@@ -10,7 +10,7 @@ from .Channels_list import *
 class MasterPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
-        self.pack()
+        self.place(height=500, width=700)
         self.canvas = DC.DrawingCanvas(self)
 
 
@@ -20,8 +20,9 @@ class MasterPage(tk.Frame):
         self.Play_stop = ttk.Button(self, text='Stop', command=lambda: self.master_stop_play())
         self.Play_stop.pack()
 
-        self.Add_channel = ttk.Button(self, text='Add_channel', command=lambda: [Channel_list.append(Channel.Channel(self)), Channel_list[-1].place()])
+        self.Add_channel = ttk.Button(self, text='Add_channel', command=lambda: [Channel_list.append(Channel.Channel(self)),Channel_list[-1].insert()])
         self.Add_channel.pack()
+        self.bttn_clicks=[] #for creating new channel
 
 
     def show_canvas(self):
@@ -36,5 +37,7 @@ class MasterPage(tk.Frame):
     def master_stop_play(self):
         for el in Channel_list:
             el.stop_play()
+
+
 
 
