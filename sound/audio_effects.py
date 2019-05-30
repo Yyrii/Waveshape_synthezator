@@ -8,12 +8,23 @@ class ChangeAudio:
 
         self.keyword_functions = {
             'volume': self.volume,
-            'mod_freq':self.mod_freq,
             'lfo':self.lfo
         }
 
     def set_vec(self, vector):
         self.vector = vector
+
+    def generate_sine(self,freq,amp): #setting one period of sine
+        T=1/float(freq)
+        t = np.arange(0, T, 1 / 48000)
+        sine=[]
+        for i in range(len(t)):
+            sine.append(float(amp) * np.sin(2 * t[i] * np.pi * float(freq)))
+        return sine
+
+    def set_sine(self,sin):
+        self.sine=sin
+
 
     def change_audio(self,**kwargs):
         for key, val in kwargs.items():
@@ -23,28 +34,12 @@ class ChangeAudio:
         return self.vector
 
     def volume(self, vol):
-        self.vector = [vol*el for el in self.vector]
+        self.vector = [float(vol)*el for el in self.vector]
 
-    def mod_freq(self,freq):
-        output = []
-        t = np.arange(0, 1, 1 /Setup.fs)
 
-        for i in range(len(t)):
-            output.append(1 * np.sin(2 * t[i] * np.pi * freq))
 
-       #self.sin=output
-        self.vector = [np.multiply(self.vector, 3 + el) for el in output]
+    def lfo(self,index):
 
-    def lfo(self,sin):
-        #self.vector=[self.vector*el for el in sin]
-        output = []
-
-        t = np.arange(0, 0.2, 1 / 48000)
-        for i in range(len(t)):
-            output.append(float(1) * np.sin(2 * t[i] * np.pi * 100))
-
-        #self.vector = self.vector * output
-        print(output)
-        self.vector = [np.multiply(self.vector,el) for el in output]
+        self.vector = np.multiply(self.vector,1+self.sine[index])
 
 

@@ -7,8 +7,9 @@ from sound.audio_effects import ChangeAudio
 
 
 class SoundApp:
-    def __init__(self, Canvas):
+    def __init__(self, Canvas,Channel):
         self.canvas = Canvas
+        self.channel=Channel
         self.p = pyaudio.PyAudio()
         self.stream = self.p.open(format=pyaudio.paFloat32, channels=1, rate=Setup.fs, output=True)
         self.AudioChanger = ChangeAudio()
@@ -16,18 +17,26 @@ class SoundApp:
     def play(self):
         def start_audio():
             while switch:
+                mod_freq=self.channel.ModulationFreqSlider.get_position()
+                sin=self.AudioChanger.generate_sine(mod_freq,self.channel.ModulationDepthSlider.get_position())
+                self.AudioChanger.set_sine(sin)
                 canvas_samples = w_o.freq_adapter(Setup.freq, self.canvas.return_vec(), Setup.fs)
-
-                self.AudioChanger.set_vec(canvas_samples)
-                self.AudioChanger.change_audio(volume=0.2,lfo=5)
-                audio = self.AudioChanger.return_vec()
-
+                # zrobić funkcję zwracającą sinusa w audio_effects
                 for i in range(3):  # expanding vector to avoid buzzing
-                    audio += audio
-                samples = np.float32(audio)
-                self.stream.write(samples)
-                if not switch:
-                    break
+                    canvas_samples += canvas_samples
+                for i in range(len(self.AudioChanger.sine)):
+
+                    self.AudioChanger.set_vec(canvas_samples)
+                    self.AudioChanger.change_audio(volume=self.channel.VolumeSlider.get_position(),lfo=i)
+                    audio = self.AudioChanger.return_vec()
+
+                    # for i in range(3):  # expanding vector to avoid buzzing
+                    #     audio += audio
+                    samples = np.float32(audio)
+                    self.stream.write(samples)
+
+                    if not switch:
+                        break
 
         thread = threading.Thread(target=start_audio)
         thread.start()

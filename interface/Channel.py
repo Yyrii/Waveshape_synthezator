@@ -12,19 +12,20 @@ class Channel(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.ChannelScale = ChannelScale(self)
+        self.ModulationFreqSlider = ChannelScale(self, "horizontal", 50, 50, 500)
+        self.ModulationDepthSlider=ChannelScale(self,"horizontal",0,0,1)
+        self.VolumeSlider = ChannelScale(self,"vertical",1,1,0)
         self.Label = Channel_label(self)
         self.PlayButt = PlayButt(self)
         self.StopButt = StopButt(self)
         self.Canvas = DrawingCanvas(self)
         self.Canvas.show()
 
-        self.Sound = SoundApp(self.Canvas)
+        self.Sound = SoundApp(self.Canvas,self)
 
         self.PlayButt.configure(command = lambda: self.Sound.switchon())
         self.StopButt.configure(command = lambda: self.Sound.switchoff())
 
-        print(self.ChannelScale.get())
 
     def place(self):
         self.pack()
