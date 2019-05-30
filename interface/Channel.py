@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 from interface.canvas.DrawingCanvas import DrawingCanvas
 from sound.sound_ import SoundApp
@@ -6,6 +7,7 @@ from .inside_classes.ChannelLabel import Channel_label
 from .inside_classes.ChannelScale import ChannelScale
 from .inside_classes.PlayButton import PlayButt
 from .inside_classes.StopButton import StopButt
+from .inside_classes.PopupWindow import PopupWindow
 
 
 class Channel(tk.Frame):
@@ -18,8 +20,9 @@ class Channel(tk.Frame):
         self.Label = Channel_label(self)
         self.PlayButt = PlayButt(self)
         self.StopButt = StopButt(self)
-        self.Canvas = DrawingCanvas(self)
-        self.Canvas.show()
+        self.PopupWindow=PopupWindow(self)
+        self.Canvas = self.PopupWindow.canvas
+
 
         self.Sound = SoundApp(self.Canvas,self)
 

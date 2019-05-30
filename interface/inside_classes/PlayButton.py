@@ -1,6 +1,6 @@
-import tkinter as tk
+from tkinter import ttk
 
-class PlayButt(tk.Button):
+class PlayButt(ttk.Button):
     def __init__(self,parent):
         super().__init__(parent)
         self.pack()

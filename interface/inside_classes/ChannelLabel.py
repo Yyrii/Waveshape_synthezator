@@ -1,4 +1,4 @@
-from tkinter import ttk  # Normal Tkinter.* widgets are not themed!
+from tkinter import ttk
 
 
 

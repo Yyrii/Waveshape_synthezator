@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
+from ttkthemes import ThemedTk
 
 import interface.canvas.DrawingCanvas as DC
 from . import Channel
@@ -12,13 +14,13 @@ class MasterPage(tk.Frame):
         self.canvas = DC.DrawingCanvas(self)
 
 
-        self.Play_but = tk.Button(self, text='Play', command=lambda :self.master_play())
+        self.Play_but = ttk.Button(self, text='Play', command=lambda :self.master_play())
         self.Play_but.pack()
 
-        self.Play_stop = tk.Button(self, text='Stop', command=lambda: self.master_stop_play())
+        self.Play_stop = ttk.Button(self, text='Stop', command=lambda: self.master_stop_play())
         self.Play_stop.pack()
 
-        self.Add_channel = tk.Button(self, text='Add_channel', command=lambda: [Channel_list.append(Channel.Channel(self)), Channel_list[-1].place()])
+        self.Add_channel = ttk.Button(self, text='Add_channel', command=lambda: [Channel_list.append(Channel.Channel(self)), Channel_list[-1].place()])
         self.Add_channel.pack()
 
 
