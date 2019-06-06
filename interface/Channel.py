@@ -40,16 +40,15 @@ class Channel(ttk.Frame):
         self.bttn_clicks=0 #clicks of button "Add channel" in MasterPage
 
 
-    def insert(self):
+    def insert(self,bttn_clicks):
 
-        self.update_count()
 
-        if self.bttn_clicks == 1:
+        if bttn_clicks == 1:
             self.place(relx=0.067, rely=0.4, height=400, width=200)
-        elif self.bttn_clicks == 2:
+        elif bttn_clicks == 2:
             self.place(relx=0.351, rely=0.4, height=400, width=200)
-        elif self.bttn_clicks == 3:
-            self.place(relx=0.638, rely=0.4, height=400, width=200)
+        elif bttn_clicks == 3:
+            self.place(relx=0.635, rely=0.4, height=400, width=200)
 
     def hide_popup_window(self):
         self.PopupWindow.withdraw()
@@ -61,7 +60,7 @@ class Channel(ttk.Frame):
         self.HideShowButt.configure(text="Hide")
         self.HideShowButt.configure(command=lambda: self.hide_popup_window())
 
-    def exiting_window(self): #what happens if someone close popup window
+    def exiting_window(self): #what happens if someone closes popup window
         self.PopupWindow.iconify()
         self.hide_popup_window()
 
@@ -73,7 +72,6 @@ class Channel(ttk.Frame):
         self.Sound.switchoff()
         self.PlayStopButt.configure(text="Play", command=lambda: self.play())
 
-    def update_count(self):
-        self.bttn_clicks += 1
+
 
 
