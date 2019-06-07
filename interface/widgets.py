@@ -22,7 +22,7 @@ class MasterPage(tk.Frame):
         # self.Play_stop = ttk.Button(self, text='Stop', command=lambda: self.master_stop_play())
         # self.Play_stop.pack()
 
-        self.Add_channel = ttk.Button(self, text='Add_channel')
+        self.Add_channel = ttk.Button(self, text='Add Channel')
         self.Add_channel.place(relx=0.133, rely=0.00)
         self.Add_channel.configure(command=lambda: [Channel_list.append(Channel.Channel(self)), self.update_count(),
                                                     Channel_list[-1].insert(self.add_bttn_clicks)])

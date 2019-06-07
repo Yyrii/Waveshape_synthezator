@@ -25,6 +25,10 @@ class Channel(ttk.Frame):
         self.ModulationDepthSlider=ChannelScale(self,"horizontal",0,0,1)
         self.VolumeSlider = ChannelScale(self,"vertical",1,1,0)
         self.VolLabel = Lab(self, '''Volume''')
+        self.Pan = ChannelScale(self, "horizontal", 1, 1, 0)
+        self.PanLabel = Lab(self, '''Pan''')
+        self.FreqSlider = ChannelScale(self, "horizontal", 1, 1, 0)
+        self.FreqLabel = Lab(self, '''Frequency''')
         self.ChannelLabel = Lab(self,'''Channel''')
         self.PopupWindow=PopupWindow(self)
         self.Canvas = self.PopupWindow.canvas
