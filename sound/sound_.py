@@ -10,9 +10,10 @@ class SoundApp:
     def __init__(self, Canvas, ChannelScale):
         self.canvas = Canvas
         self.p = pyaudio.PyAudio()
-        self.stream = self.p.open(format=pyaudio.paFloat32, channels=1, rate=Setup.fs, output=True)
+        self.stream = self.p.open(format=pyaudio.paFloat32, channels=2, rate=Setup.fs, output=True)
         self.AudioChanger = ChangeAudio()
         self.ChannelScale = ChannelScale
+        #self.freq = Setup.freq -> czytanie częstotliwości
 
     def play(self):
         def start_audio():
@@ -20,13 +21,13 @@ class SoundApp:
                 canvas_samples = w_o.freq_adapter(Setup.freq, self.canvas.return_vec(), Setup.fs)
 
                 self.AudioChanger.set_vec(canvas_samples)
-                self.AudioChanger.change_audio(volume=1-self.ChannelScale.get())
+                self.AudioChanger.change_audio(volume=1-self.ChannelScale.get(), modulation=0)
                 audio = self.AudioChanger.return_vec()
 
-                for i in range(3):  # expanding vector to avoid buzzing
+                for i in range(4):  # expanding vector to avoid buzzing
                     audio += audio
                 samples = np.float32(audio)
-                self.stream.write(samples)
+                self.stream.write(np.ravel(np.column_stack((samples, samples/2)))) # stereo, L R
                 if not switch:
                     break
 

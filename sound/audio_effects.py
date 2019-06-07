@@ -1,4 +1,6 @@
 import numpy as np
+from sound.wave_operations.wave_operations import get_sine_index
+import time
 
 
 def count(f):
@@ -11,9 +13,11 @@ def count(f):
 
 class ChangeAudio:
     def __init__(self):
+        self.index = 0
         self.keyword_functions = {
             'volume': self.volume,
-            'fm' : self.fm
+            'fm' : self.fm,
+            'modulation':self.modulation
         }
 
     def set_vec(self, vector):
@@ -24,11 +28,17 @@ class ChangeAudio:
             self.keyword_functions[key](val)
 
     def return_vec(self):
+        self.index += 1
         return self.vector
 
     def volume(self, vol):
         self.vector = [vol*el for el in self.vector]
 
+    def modulation(self,mod):
+        if mod:
+            index = int(("{0:.3f}".format(time.clock())).split('.')[1])  # returns fractial part of time in second
+            self.vector = [get_sine_index(mod,index)*el for el in self.vector]
 
-    def fm(self):
-        pass
+    def fm(self, fm_mod):
+        f_carrier = 480
+        self.vector = [np.sin(2*np.pi*f_carrier + self.vector[self.index % 100])*fm_mod for el in self.vector]
