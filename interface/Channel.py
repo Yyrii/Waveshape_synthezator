@@ -3,7 +3,7 @@ from tkinter import ttk
 
 
 from sound.sound_ import SoundApp
-from .inside_classes.ChannelLabel import Lab
+from .inside_classes.Label import Lab
 from .inside_classes.ChannelScale import ChannelScale
 from .inside_classes.ChannelButt import Butt
 
@@ -17,42 +17,35 @@ class Channel(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent)
 
-        self.HideShowButt=Butt(self,'Hide',self.hide_popup_window)
-        self.PlayStopButt = Butt(self,'Play',self.play)  # przerobić na jedną klasę przycisk
-        self.FreqLabel=Lab(self,'''Modulation Frequency''')
-        self.ModulationFreqSlider = ChannelScale(self, "horizontal", 50, 50, 500)
-        self.ModDepthLabel = Lab(self, '''Modulation Depth''')
-        self.ModulationDepthSlider=ChannelScale(self,"horizontal",0,0,1)
-        self.VolumeSlider = ChannelScale(self,"vertical",1,1,0)
-        self.VolLabel = Lab(self, '''Volume''')
-        self.Pan = ChannelScale(self, "horizontal", 1, 1, 0)
-        self.PanLabel = Lab(self, '''Pan''')
-        self.FreqSlider = ChannelScale(self, "horizontal", 1, 1, 0)
-        self.FreqLabel = Lab(self, '''Frequency''')
-        self.ChannelLabel = Lab(self,'''Channel''')
-        self.PopupWindow=PopupWindow(self)
-        self.Canvas = self.PopupWindow.canvas
-
-        self.Sound = SoundApp(self.Canvas,self)
-
-        # what happens if someone closes popup window
-        self.PopupWindow.protocol("WM_DELETE_WINDOW", self.exiting_window)
-
-
-
-
-        self.bttn_clicks=0 #clicks of button "Add channel" in MasterPage
+        self.HideShowButt           =Butt(self,'Hide',self.hide_popup_window)
+        self.PlayStopButt           =Butt(self,'Play',self.play)  # przerobić na jedną klasę przycisk
+        self.FreqLabel              =Lab(self,'''Modulation Frequency''')
+        self.ModulationFreqSlider   =ChannelScale(self, orient="horizontal", initial_pos=50, beg_of_scale=50,
+                                                  end_of_scale=500)
+        self.ModDepthLabel          =Lab(self, '''Modulation Depth''')
+        self.ModulationDepthSlider  =ChannelScale(self,orient="horizontal",initial_pos=0,beg_of_scale=0,
+                                                  end_of_scale=1)
+        self.VolumeSlider           =ChannelScale(self,orient="vertical",initial_pos=1,beg_of_scale=1,
+                                                  end_of_scale=0)
+        self.VolLabel               =Lab(self, '''Volume''')
+        self.Pan                    =ChannelScale(self,orient= "horizontal", initial_pos=1,beg_of_scale= 1,
+                                                  end_of_scale= 0)
+        self.PanLabel               =Lab(self, '''Pan''')
+        self.FreqSlider             =ChannelScale(self, orient="horizontal", initial_pos=1,beg_of_scale= 1,
+                                                  end_of_scale= 0)
+        self.FreqLabel              =Lab(self, '''Frequency''')
+        self.ChannelLabel           =Lab(self,'''Channel''')
 
 
     def insert(self,bttn_clicks):
-
-
-        if bttn_clicks == 1:
-            self.place(relx=0.067, rely=0.4, height=400, width=200)
-        elif bttn_clicks == 2:
-            self.place(relx=0.351, rely=0.4, height=400, width=200)
-        elif bttn_clicks == 3:
-            self.place(relx=0.635, rely=0.4, height=400, width=200)
+        if bttn_clicks < 5:
+            self.place(relx=0.067+(0.18*(bttn_clicks-1)), rely=0.4, height=400, width=200)
+            self.PopupWindow = PopupWindow(self)
+            self.PopupWindow.resizable(0, 0)
+            self.Canvas = self.PopupWindow.canvas
+            self.Sound = SoundApp(self.Canvas, self)
+            # what happens if someone closes popup window
+            self.PopupWindow.protocol("WM_DELETE_WINDOW", self.exiting_window)
 
     def hide_popup_window(self):
         self.PopupWindow.withdraw()

@@ -9,8 +9,9 @@ from .Channels_list import *
 
 class MasterPage(tk.Frame):
     def __init__(self, parent):
-        tk.Frame.__init__(self, parent)
-        self.place(height=500, width=700)
+        tk.Frame.__init__(self, parent,width=2000,height=700)
+        # self.place(height=500, width=700)
+        self.pack()
         # self.canvas = DC.DrawingCanvas(self)
 
         self.add_bttn_clicks =0
@@ -28,10 +29,10 @@ class MasterPage(tk.Frame):
                                                     Channel_list[-1].insert(self.add_bttn_clicks)])
         self.Master_volume = ttk.Scale(orient="vertical",takefocus="",from_=1, to=0)
         self.Master_volume.set(1)
-        self.Master_volume.place(relx=0.5, rely=0.456)
+        self.Master_volume.place(relx=0.3, rely=0.00)
 
         self.Master_label=ttk.Label(text="Master Volume")
-        self.Master_label.place(relx=0.48, rely=0.6)
+        self.Master_label.place(relx=0.27, rely=0.16)
 
 
     def show_canvas(self):
@@ -53,6 +54,9 @@ class MasterPage(tk.Frame):
 
     def update_count(self):
         self.add_bttn_clicks += 1
+        if self.add_bttn_clicks>=5:
+            self.Add_channel.configure(text="No more channels left")
+
 
 
 
