@@ -1,5 +1,6 @@
 from interface.canvas.DrawingCanvas_methods import *
-
+from tkinter import ttk
+import tkinter as tk
 
 class DrawingCanvas:
     def __init__(self, parent):

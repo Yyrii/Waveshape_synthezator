@@ -7,8 +7,9 @@ from sound.audio_effects import ChangeAudio
 
 
 class SoundApp:
-    def __init__(self, Canvas, ChannelScale):
+    def __init__(self, Canvas,Channel):
         self.canvas = Canvas
+        self.channel=Channel
         self.p = pyaudio.PyAudio()
         self.stream = self.p.open(format=pyaudio.paFloat32, channels=2, rate=Setup.fs, output=True)
         self.AudioChanger = ChangeAudio()
@@ -18,7 +19,14 @@ class SoundApp:
     def play(self):
         def start_audio():
             while switch:
+                mod_freq=self.channel.ModulationFreqSlider.get_position()
+                sin=self.AudioChanger.generate_sine(mod_freq,self.channel.ModulationDepthSlider.get_position())
+                self.AudioChanger.set_sine(sin)
                 canvas_samples = w_o.freq_adapter(Setup.freq, self.canvas.return_vec(), Setup.fs)
+                # zrobić funkcję zwracającą sinusa w audio_effects
+                for i in range(3):  # expanding vector to avoid buzzing
+                    canvas_samples += canvas_samples
+                for i in range(len(self.AudioChanger.sine)):
 
                 self.AudioChanger.set_vec(canvas_samples)
                 self.AudioChanger.change_audio(volume=1-self.ChannelScale.get(), modulation=0)

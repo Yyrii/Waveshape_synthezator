@@ -1,33 +1,71 @@
-import tkinter as tk
-import threading
-from interface.canvas.DrawingCanvas import DrawingCanvas
+from tkinter import ttk
+
 from sound.sound_ import SoundApp
-from .inside_classes.ChannelLabel import Channel_label
+from .inside_classes.Label import Lab
 from .inside_classes.ChannelScale import ChannelScale
-from .inside_classes.PlayButton import PlayButt
-from .inside_classes.StopButton import StopButt
+from .inside_classes.ChannelButt import Butt
+
+from .inside_classes.PopupWindow import PopupWindow
 
 
-class Channel(tk.Frame):
+from .Channels_list import Channel_list
+
+
+class Channel(ttk.Frame):
     def __init__(self, parent):
-        super().__init__(parent)
+        ttk.Frame.__init__(self, parent)
 
-        self.ChannelScale = ChannelScale(self,0,1)
-        self.Label = Channel_label(self)
-        self.PlayButt = PlayButt(self)
-        self.StopButt = StopButt(self)
-        self.Canvas = DrawingCanvas(self)
-        self.Canvas.show()
+        self.HideShowButt           =Butt(self,'Hide',self.hide_popup_window)
+        self.PlayStopButt           =Butt(self,'Play',self.play)  # przerobić na jedną klasę przycisk
+        self.FreqLabel              =Lab(self,'''Modulation Frequency''')
+        self.ModulationFreqSlider   =ChannelScale(self, orient="horizontal", initial_pos=50, beg_of_scale=50,
+                                                  end_of_scale=500)
+        self.ModDepthLabel          =Lab(self, '''Modulation Depth''')
+        self.ModulationDepthSlider  =ChannelScale(self,orient="horizontal",initial_pos=0,beg_of_scale=0,
+                                                  end_of_scale=1)
+        self.VolumeSlider           =ChannelScale(self,orient="vertical",initial_pos=1,beg_of_scale=1,
+                                                  end_of_scale=0)
+        self.VolLabel               =Lab(self, '''Volume''')
+        self.Pan                    =ChannelScale(self,orient= "horizontal", initial_pos=1,beg_of_scale= 1,
+                                                  end_of_scale= 0)
+        self.PanLabel               =Lab(self, '''Pan''')
+        self.FreqSlider             =ChannelScale(self, orient="horizontal", initial_pos=1,beg_of_scale= 1,
+                                                  end_of_scale= 0)
+        self.FreqLabel              =Lab(self, '''Frequency''')
+        self.ChannelLabel           =Lab(self,'''Channel''')
 
-        self.Sound = SoundApp(self.Canvas, self.ChannelScale)
+    def insert(self,bttn_clicks):
+        if bttn_clicks < 5:
+            self.place(relx=0.067+(0.18*(bttn_clicks-1)), rely=0.4, height=400, width=200)
+            self.PopupWindow = PopupWindow(self)
+            self.PopupWindow.resizable(0, 0)
+            self.Canvas = self.PopupWindow.canvas
+            self.Sound = SoundApp(self.Canvas, self)
+            # what happens if someone closes popup window
+            self.PopupWindow.protocol("WM_DELETE_WINDOW", self.exiting_window)
 
-        self.PlayButt.configure(command = lambda: self.Sound.switchon())
-        self.StopButt.configure(command = lambda: self.Sound.switchoff())
+    def hide_popup_window(self):
+        self.PopupWindow.withdraw()
+        self.HideShowButt.configure(text="Show")
+        self.HideShowButt.configure(command=lambda: self.show_popup_window())
+
+    def show_popup_window(self):
+        self.PopupWindow.deiconify()
+        self.HideShowButt.configure(text="Hide")
+        self.HideShowButt.configure(command=lambda: self.hide_popup_window())
+
+    def exiting_window(self): #what happens if someone closes popup window
+        self.PopupWindow.iconify()
+        self.hide_popup_window()
 
 
-    def place(self):
-        self.pack()
     def play(self):
         self.Sound.switchon()
+        self.PlayStopButt.configure(text="Stop",command = lambda: self.stop_play())
     def stop_play(self):
         self.Sound.switchoff()
+        self.PlayStopButt.configure(text="Play", command=lambda: self.play())
+
+
+
+
