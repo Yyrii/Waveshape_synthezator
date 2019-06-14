@@ -1,8 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-from ttkthemes import ThemedTk
-
-import interface.canvas.DrawingCanvas as DC
 from . import Channel
 from .Channels_list import *
 
@@ -10,18 +7,11 @@ from .Channels_list import *
 class MasterPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent,width=2000,height=700)
-        # self.place(height=500, width=700)
         self.pack()
-        # self.canvas = DC.DrawingCanvas(self)
-
         self.add_bttn_clicks =0
-
 
         self.Play_but = ttk.Button(self, text='Play', command=lambda :self.master_play())
         self.Play_but.place(relx=0.133, rely=0.05)
-
-        # self.Play_stop = ttk.Button(self, text='Stop', command=lambda: self.master_stop_play())
-        # self.Play_stop.pack()
 
         self.Add_channel = ttk.Button(self, text='Add Channel')
         self.Add_channel.place(relx=0.133, rely=0.00)
@@ -54,10 +44,7 @@ class MasterPage(tk.Frame):
 
     def update_count(self):
         self.add_bttn_clicks += 1
-        if self.add_bttn_clicks>=5:
+        if self.add_bttn_clicks>5:
             self.Add_channel.configure(text="No more channels left")
-
-
-
 
 

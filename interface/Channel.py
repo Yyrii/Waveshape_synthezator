@@ -1,14 +1,9 @@
 from tkinter import ttk
-
 from sound.sound_ import SoundApp
 from .inside_classes.Label import Lab
 from .inside_classes.ChannelScale import ChannelScale
 from .inside_classes.ChannelButt import Butt
-
 from .inside_classes.PopupWindow import PopupWindow
-
-
-from .Channels_list import Channel_list
 
 
 class Channel(ttk.Frame):
@@ -18,24 +13,23 @@ class Channel(ttk.Frame):
         self.HideShowButt           =Butt(self,'Hide',self.hide_popup_window)
         self.PlayStopButt           =Butt(self,'Play',self.play)  # przerobić na jedną klasę przycisk
         self.FreqLabel              =Lab(self,'''Modulation Frequency''')
-        self.ModulationFreqSlider   =ChannelScale(self, orient="horizontal", initial_pos=50, beg_of_scale=50,
-                                                  end_of_scale=500)
-        self.ModDepthLabel          =Lab(self, '''Modulation Depth''')
-        self.ModulationDepthSlider  =ChannelScale(self,orient="horizontal",initial_pos=0,beg_of_scale=0,
-                                                  end_of_scale=1)
+        self.ModulationFreqSlider   =ChannelScale(self, orient="horizontal", initial_pos=0, beg_of_scale=0,
+                                                  end_of_scale=50)
+
+        self.VolLabel               =Lab(self, '''Volume''')
         self.VolumeSlider           =ChannelScale(self,orient="vertical",initial_pos=1,beg_of_scale=1,
                                                   end_of_scale=0)
-        self.VolLabel               =Lab(self, '''Volume''')
-        self.Pan                    =ChannelScale(self,orient= "horizontal", initial_pos=1,beg_of_scale= 1,
-                                                  end_of_scale= 0)
         self.PanLabel               =Lab(self, '''Pan''')
-        self.FreqSlider             =ChannelScale(self, orient="horizontal", initial_pos=1,beg_of_scale= 1,
+        self.Pan                    =ChannelScale(self,orient= "horizontal", initial_pos=0.5,beg_of_scale= 1,
                                                   end_of_scale= 0)
         self.FreqLabel              =Lab(self, '''Frequency''')
-        self.ChannelLabel           =Lab(self,'''Channel''')
+        self.FreqSlider             =ChannelScale(self, orient="horizontal", initial_pos=480,beg_of_scale= 100, end_of_scale= 1200)
+
+        self.Master = parent
+
 
     def insert(self,bttn_clicks):
-        if bttn_clicks < 5:
+        if bttn_clicks <= 5:
             self.place(relx=0.067+(0.18*(bttn_clicks-1)), rely=0.4, height=400, width=200)
             self.PopupWindow = PopupWindow(self)
             self.PopupWindow.resizable(0, 0)
@@ -58,14 +52,10 @@ class Channel(ttk.Frame):
         self.PopupWindow.iconify()
         self.hide_popup_window()
 
-
     def play(self):
         self.Sound.switchon()
         self.PlayStopButt.configure(text="Stop",command = lambda: self.stop_play())
     def stop_play(self):
         self.Sound.switchoff()
         self.PlayStopButt.configure(text="Play", command=lambda: self.play())
-
-
-
 
