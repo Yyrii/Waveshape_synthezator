@@ -1,9 +1,9 @@
 from interface.widgets import MasterPage
-import tkinter as tk
+from ttkthemes import ThemedTk
 
 if __name__ == '__main__':
-    root = tk.Tk()
-    # root.geometry('300x300')
-
-    a = MasterPage(root)
+    root = ThemedTk(theme="radiance")
+    root.geometry("1200x700")
+    # root.resizable(0, 0)
+    MasterPage(root)
     root.mainloop()
