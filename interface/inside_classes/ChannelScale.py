@@ -19,8 +19,4 @@ class ChannelScale(ttk.Scale):
             return self.pos
 
     def update_pos(self, val):
-<<<<<<< HEAD
             self.set_position(val)
-=======
-            self.set_position(val)
->>>>>>> yyrii-gabs-merge

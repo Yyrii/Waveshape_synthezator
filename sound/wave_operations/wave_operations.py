@@ -6,10 +6,6 @@ import setup_.setup as setup
 def get_sine_index(freq,index):  # getting specified index of sine
     return np.sin(np.pi * freq*index*(1/1000)*2.)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> yyrii-gabs-merge
 
 def freq_adapter(freq, input_v, fs):
     expected_width = int(fs / freq)          # how wide will the output vector be
