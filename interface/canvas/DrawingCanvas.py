@@ -14,7 +14,6 @@ class DrawingCanvas:
 
         self.lines = []
         introducing_lines(self)
-        #self.drawing_area.pack()
 
 
     drawing_tool = "pencil"

@@ -1,6 +1,3 @@
-import tkinter as tk
-
-#from canvas.DrawingCanvas import*
 from setup_.setup import *
 
 
@@ -30,8 +27,6 @@ def pencil_draw_method(self, event=None):
         self.y_pos = event.y
 
 
-
-
 def motion_method(self, event=None):
     try:
         if self.drawing_tool == "pencil":
@@ -56,6 +51,7 @@ def delete_lines_method(self):
     for i in range(len(lines)):
         self.drawing_area.delete(self.lines[i])
 
+
 def introducing_lines(self):
     for i in range(Setup.width):  # u cannot exceed the window, those samples will not be taken into consideration
         self.lines.append(0)
@@ -66,8 +62,11 @@ def introducing_lines(self):
 
 def show(self):
     self.drawing_area.pack()
+
+
 def hide(self):
     self.drawing_area.pack_forget()
+
 
 def return_vec(self):
     return self.vector_y

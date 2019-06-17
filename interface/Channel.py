@@ -27,7 +27,6 @@ class Channel(ttk.Frame):
 
         self.Master = parent
 
-
     def insert(self,bttn_clicks):
         if bttn_clicks <= 5:
             self.place(relx=0.067+(0.18*(bttn_clicks-1)), rely=0.4, height=400, width=200)
@@ -55,6 +54,7 @@ class Channel(ttk.Frame):
     def play(self):
         self.Sound.switchon()
         self.PlayStopButt.configure(text="Stop",command = lambda: self.stop_play())
+
     def stop_play(self):
         self.Sound.switchoff()
         self.PlayStopButt.configure(text="Play", command=lambda: self.play())

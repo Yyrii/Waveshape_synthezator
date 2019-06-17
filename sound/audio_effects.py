@@ -3,14 +3,6 @@ from sound.wave_operations.wave_operations import get_sine_index
 import time
 
 
-def count(f):
-    def wrapped(**kwargs):
-        wrapped.calls += 1
-        return f(**kwargs)
-    wrapped.calls = 0
-    return wrapped
-
-
 class ChangeAudio:
     def __init__(self):
         self.index = 0
@@ -23,7 +15,7 @@ class ChangeAudio:
     def set_vec(self, vector):
         self.vector = vector
 
-    def generate_sine(self,freq,amp): #setting one period of sine
+    def generate_sine(self,freq,amp): #selecting one period of sine
         T=1/float(freq)
         t = np.arange(0, T, 1 / 48000)
         sine=[]
